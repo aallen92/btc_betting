@@ -3,11 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "npm run auth | next dev",
+    "start": "npm run config | next dev",
     "build": "next build",
-    "start": "next start",
     "lint": "next lint",
-    "auth": "node ./next.config.dev.js",
+    "config": "node ./next.config.js",
     "dep-netlify": "netlify deploy --build --prod"
   },
   "dependencies": {
