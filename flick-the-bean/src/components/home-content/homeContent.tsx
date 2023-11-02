@@ -1,16 +1,20 @@
 import { GetrecentFlickers } from "@/api/recent-flickers";
+import { useGlobalContext } from "@/app/react-query-provider/reactQueryProvider";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 import PlayModal from "../play-modal/playModal";
 import RecentFlickersTable from "../recent-flickers-table/recentFlickerTable";
 import RecentFlickersModal from "../recent-flickers-modal/recentFlickersModal";
+import { useRouter } from "next/navigation";
 
 const HomeContent:FC = () => {
   const[showRecentModal, setShowRecentModal] = useState(false);
   const[showModal, setShowModal] = useState(false);
   const searchParams = useSearchParams();
-  const search = searchParams.get('ref')
+  const { isLoggedin, setIsLoggedIn } = useGlobalContext();
+  const search = searchParams.get('ref');
+  const router = useRouter();
 
   const {data, isLoading, isRefetching} = useQuery({
     queryKey: ['recent'],
@@ -19,6 +23,8 @@ const HomeContent:FC = () => {
 
 
   useEffect(() => {
+		setIsLoggedIn(true);
+    router.push('/flip-coin');
     console.log("component mounted", search);
   }, [])
 
